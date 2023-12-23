@@ -1,11 +1,3 @@
-# Part 1: Parse left and right side as sets, compute their intersection, take its count to the power of 2 and sum that
-# Input: "Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53"
-# Output: Game is possible, sum one to the total (Because game number one)
-
-# Part 2: Init FIFO-Queue, append the original card indices and lookup for each card the number of copies and append them
-# Input: "Card 1: 41 48 83 86 17 | 83 86  6 31 17  9 48 53"
-# Output: Append four new copies for Cards 2, 3, 4 and 5
-
 import queue
 
 
