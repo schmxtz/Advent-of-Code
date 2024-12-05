@@ -1,2 +1,9 @@
 *.o
 *.exe
+*/.bsp
+*/.scala-build
+.bsp
+.scala-build
+*.db
+*.json
+*.log
