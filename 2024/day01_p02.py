@@ -38,7 +38,7 @@ optimized_duration_ns = (end-start)
 duration_ratio = (duration_ns/optimized_duration_ns)
 
 print(f"It took {optimized_duration_ns}ns to calculate {similarity}")
-print(f"The optimized approach was ~{int(duration_ratio)}x faster")
+print(f"The optimized approach was ~{int(duration_ratio)}x faster") # my benchmark: optimized solution about 14x faster
 
 
 
