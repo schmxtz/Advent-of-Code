@@ -6,6 +6,17 @@ def is_in_order(page_order, rules):
             return False
     return True
 
+def get_correct_order(page_order, rules):
+    new_order = []
+    while page_order:
+        number = page_order.pop(0)
+        if len(page_order) == len(set(page_order) & rules.get(number, set())):  # Remaining numbers must come after current number
+            new_order.append(number)
+            continue
+        else:
+            page_order.append(number)
+    return new_order
+
 # Parse data
 file = open('./data/day5.txt')
 data = file.read().split('\n\n')
@@ -19,7 +30,9 @@ page_orders = [list(map(int, order.split(','))) for order in data[1].split('\n')
 start = time.perf_counter()
 result = 0
 for page_order in page_orders:
-    if is_in_order(page_order, rules): result+=page_order[len(page_order)//2]
+    if not is_in_order(page_order, rules):
+        new_order = get_correct_order(page_order, rules)
+        result+=new_order[len(new_order)//2]
 end = time.perf_counter()
 
 duration_ns = (end-start)
