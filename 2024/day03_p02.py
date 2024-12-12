@@ -1,6 +1,7 @@
 import time
 import re
 
+# Parse data
 file = open('./data/day3.txt')
 chars = file.read()
 
