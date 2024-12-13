@@ -45,7 +45,7 @@ direction = 0
 (next_row, next_col) = (-1, -1)
 while (start_row, start_col) != (next_row, next_col):
     (next_row, next_col), next_direction = traverse(obstacles, start_row, start_col, direction)
-    
+       
 
 
 
