@@ -2,9 +2,10 @@ import time
 
 # 0 -> up, 1 -> right, 2 -> down, 3 -> left
 def next_directon(i):
-    return i+1 % 4
+    return (i+1) % 4
 
-def traverse(obstacles, row, column, direction):
+def traverse(obstacles, position, direction):
+    row, column = position
     match direction:
         case 0: # all obstacles above current position on same column
             obstacles_on_path = [obstacle for obstacle in obstacles if column == obstacle[1] and row > obstacle[0]]
@@ -26,7 +27,18 @@ def traverse(obstacles, row, column, direction):
             if obstacles_on_path:
                 next_obstacle = max(obstacles_on_path)
                 return (next_obstacle[0], next_obstacle[1]+1), next_directon(direction)
-    return (row, column), direction    
+        case _:
+            raise Exception('invalid direction')
+    return (row, column), direction
+
+def points_on_line(start, end):
+    x1, y1 = start
+    x2, y2 = end
+    deltax = x2-x1
+    deltax = 1 if deltax == 0 else int(abs(deltax)/deltax)
+    deltay = y2-y1
+    deltay = 1 if deltay == 0 else int(abs(deltay)/deltay)
+    return set([(i,j) for i in range(x1, x2+deltax, deltax) for j in range(y1, y2+deltay, deltay)])
 
 # Parse data
 lines = open('./data/day6.txt').read().split('\n')
@@ -41,11 +53,34 @@ for row in range(len(lines)):
             start_row, start_col = row, col
 
 # Traverse map
+visited_tiles = set()
 direction = 0
-(next_row, next_col) = (-1, -1)
-while (start_row, start_col) != (next_row, next_col):
-    (next_row, next_col), next_direction = traverse(obstacles, start_row, start_col, direction)
-       
+position = (start_row,start_col)
+next_position = (-1,-1)
+while True:
+    next_position, next_direction = traverse(obstacles, position, direction)
+    if position != next_position: 
+        visited_tiles |= points_on_line(position, next_position)
+        position = next_position
+        direction = next_direction
+    elif direction != next_direction:
+        direction = next_direction
+        continue
+    else: 
+        match direction:
+            case 0:
+                visited_tiles |= points_on_line(position, (0, position[1]))
+            case 1:
+                visited_tiles |= points_on_line(position, (position[0], MAX_COL-1))
+            case 2:
+                visited_tiles |= points_on_line(position, (MAX_ROW-1, position[0]))
+            case 3:
+                visited_tiles |= points_on_line(position, (position[0], 0))
+        break
+
+print(len(visited_tiles))
+    
+
 
 
 
