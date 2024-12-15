@@ -23,4 +23,4 @@ for page_order in page_orders:
 end = time.perf_counter()
 
 duration_ns = (end-start)
-print(f"It took {duration_ns}ns to calculate {result}")
+print(f"It took {duration_ns}s to calculate {result}")

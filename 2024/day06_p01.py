@@ -81,7 +81,7 @@ while True:
 end = time.perf_counter()
 
 duration_ns = (end-start)
-print(f"It took {duration_ns}ns to calculate {len(visited_tiles)}")
+print(f"It took {duration_ns}s to calculate {len(visited_tiles)}")
     
 
 

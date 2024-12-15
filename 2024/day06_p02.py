@@ -76,11 +76,10 @@ for obstacle in get_positions_on_path(obstacles, position, direction, lines):
     is_loop = traverse(obstacles | set([obstacle]), position, direction)
     if is_loop and obstacle != position:
         looping_obstacles.add(obstacle)
-
 end = time.perf_counter()
 
 duration_ns = (end-start)
-print(f"It took {duration_ns}ns to calculate {len(looping_obstacles)}")
+print(f"It took {duration_ns}s to calculate {len(looping_obstacles)}")
     
 
 

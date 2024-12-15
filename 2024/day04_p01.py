@@ -40,6 +40,6 @@ for row in range(len(lines)):
 end = time.perf_counter()
 
 duration_ns = (end-start)
-print(f"It took {duration_ns}ns to calculate {cross_count}")
+print(f"It took {duration_ns}s to calculate {cross_count}")
 
 

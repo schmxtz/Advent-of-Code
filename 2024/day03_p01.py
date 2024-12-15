@@ -53,7 +53,7 @@ end = time.perf_counter()
 regex_duration_ns = (end-start)
 duration_ratio = (duration_ns/regex_duration_ns)
 
-print(f"It took {regex_duration_ns}ns to calculate {result}")
+print(f"It took {regex_duration_ns}s to calculate {result}")
 print(f"The regex approach was ~{int(duration_ratio)}x faster") # my benchmark: regex ~7x faster..., will be using regex from now on
 
 
