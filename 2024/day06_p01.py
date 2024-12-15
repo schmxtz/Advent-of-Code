@@ -52,6 +52,7 @@ for row in range(len(lines)):
         if start_row == -1 and cur_char == '^':
             start_row, start_col = row, col
 
+start = time.perf_counter()
 # Traverse map
 visited_tiles = set()
 direction = 0
@@ -77,8 +78,10 @@ while True:
             case 3:
                 visited_tiles |= points_on_line(position, (position[0], 0))
         break
+end = time.perf_counter()
 
-print(len(visited_tiles))
+duration_ns = (end-start)
+print(f"It took {duration_ns}ns to calculate {len(visited_tiles)}")
     
 
 
