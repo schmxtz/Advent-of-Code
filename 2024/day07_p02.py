@@ -1,21 +1,27 @@
 import time
-from operator import mul, add
 from itertools import product
+from operator import mul, add
+
+
+def concat(op_left, op_right):
+    return int(str(op_left)+str(op_right))
+
+def calc_equation(equation, ops, result):
+    temp = equation[0]
+    for i in range(0, len(equation)-1):
+        temp=ops[i](temp, equation[i+1])
+        if temp > result: break
+    return temp
 
 def is_correct(equation):
     if len(equation) == 2:
         return equation[0] == equation[1]
     result = equation[0]
-    # -2 because the first number is the result and between each number is one operator -> 13 8 5 -> 13 = 8 + 5
-    for ops in product([mul, add], repeat=len(equation)-2):
-        temp = equation[1]
-        for i in range(1, len(equation)-1):
-            temp=ops[i-1](temp, equation[i+1])
-            if temp > result:
-                break
-        if temp == result:
-            return True
+    for ops in product(possible_ops, repeat=len(equation)-2):
+        if result == calc_equation(equation[1:], ops, result): return True
     return False
+    
+possible_ops = [mul, add, concat]
 
 data = open('./data/day7.txt').read()
 equations = [list(map(int, line.split(' '))) for line in data.replace(':', '').split('\n')]
