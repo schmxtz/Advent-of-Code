@@ -10,6 +10,7 @@ for i in range(len(data)):
         for j in range(int(data[i])):
             ids.append(-1)
 
+start = time.perf_counter()
 left = 0
 right = len(ids)-1
 while not all(map(lambda x: x == -1, ids[left:])):
@@ -28,9 +29,10 @@ result = 0
 while ids[i] != -1:
     result += i * ids[i]
     i += 1
+end = time.perf_counter()
 
-print(result)
-
+duration_ns = (end-start)
+print(f"It took {duration_ns}s to calculate {result}")
 
 
         
