@@ -31,7 +31,7 @@ if '__main__' == __name__:
             else:
                 next_positions = get_next_positions(data, visited, pos)
                 path.extend(next_positions)
-                visited.update(next_positions)
+                visited.add(pos)
     end = time.perf_counter()
     print(score)
     
