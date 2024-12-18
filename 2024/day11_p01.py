@@ -5,7 +5,7 @@ if '__main__' == __name__:
         stones = file.read().split(' ')
 
     start = time.perf_counter()
-    for i in range(25):
+    for i in range(30):
         j = 0
         k = len(stones)
         while j < k:
