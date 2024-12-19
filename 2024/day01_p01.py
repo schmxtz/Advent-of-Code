@@ -1,3 +1,16 @@
+'''
+example input:
+3   4
+4   3
+2   5
+1   3
+3   9
+3   3
+
+output: sum of distances between n-th number pairs
+result: 2 + 1 + 0 + 1 + 2 + 5 = 11
+'''
+
 # Parse input
 file = open('./data/day1.txt')
 row_sep, col_sep = '\n', '   '
