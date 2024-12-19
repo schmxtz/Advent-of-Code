@@ -1,3 +1,16 @@
+'''
+example input:
+3   4
+4   3
+2   5
+1   3
+3   9
+3   3
+
+output: sum of left numbers times their #occurences in the right column
+result: 9 + 4 + 0 + 0 + 9 + 9 = 31
+'''
+
 import time
 
 # Parse input
@@ -18,7 +31,7 @@ duration_ns = (end-start)
 print(f"It took {duration_ns}ns to calculate {similarity}")
 
 # <------------------------------------------------------------------------------------------------------------->
-# Using count is very primitive, instead we can iterate the second column once and count the number of occurences
+# Using count is very primitive, instead we can precompute the number of occurences
 start = time.perf_counter()
 similarity = 0
 first_col.sort()
@@ -28,7 +41,6 @@ second_col.sort()
 occurences = {}
 for num in second_col:
     occurences[num] = occurences.get(num, 0) + 1
-
 
 for num in first_col:
     similarity += occurences.get(num, 0) * num
