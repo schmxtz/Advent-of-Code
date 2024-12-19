@@ -11,7 +11,7 @@ def neighbor(data: list[list[int]], visited: set[int], pos: tuple[int, int]) -> 
             next_pos.append((next_row, next_col))
     return next_pos
 
-def circumference(region):
+def circumference(region: dict[int, list[tuple[int, int]]]) -> int:
     circ = 0
     for pos in region:
         circ += (4-len(region[pos]))
