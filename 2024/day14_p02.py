@@ -30,40 +30,33 @@ import math
 
 DIM_WIDTH = 101
 DIM_HEIGHT = 103
-MID_WIDTH = DIM_WIDTH//2
-MID_HEIGHT = DIM_HEIGHT//2
 SECONDS = 100
-
-def quadrant_pos(robot_pos: tuple[int, int], middle: tuple[int, int]=(MID_WIDTH, MID_HEIGHT)) -> int:
-    if robot_pos[0] > middle[0] and robot_pos[1] < middle[1]:  # top-right
-        return 1
-    elif robot_pos[0] < middle[0] and robot_pos[1] < middle[1]:  # top-left
-        return 2
-    elif robot_pos[0] < middle[0] and robot_pos[1] > middle[1]:    # bottom-left
-        return 3
-    elif robot_pos[0] > middle[0] and robot_pos[1] > middle[1]:    # bottom-right
-        return 4
-    else:
-        return 0
 
 def simulate_movement(robot_pos: tuple[int, int], robot_vel: tuple[int, int], seconds: int=SECONDS, dim: tuple[int, int]=(DIM_WIDTH, DIM_HEIGHT)) -> tuple[int, int]:
     new_pos = ((robot_pos[0] + robot_vel[0]*seconds) % dim[0], (robot_pos[1] + robot_vel[1]*seconds) % dim[1])
     return new_pos
 
+def print_robos_pos(positions: set[tuple[int, int]]):
+    image = [[' ' for _ in range(DIM_WIDTH)]+['\n'] for _ in range(DIM_HEIGHT)]   # init
+    for pos in positions:
+        image[pos[1]][pos[0]] = '#' # draw
+    image = [c for r in image for c in r]   # flatten
+    print(''.join(image))
+
 if '__main__' == __name__:
     with open('./data/day14.txt') as f:
         data = f.read().split('\n')
-    quadrants = [0]*5
+    
+    old_pos = [list(map(int, re.findall(r'\-{0,1}\d{1,}', robot))) for robot in data]
 
-    start = time.perf_counter()
-    for robot in data:
-        pos_x, pos_y, vel_x, vel_y = list(map(int, re.findall(r'\-{0,1}\d{1,}', robot)))
-        new_pos = simulate_movement((pos_x, pos_y), (vel_x, vel_y))
-        in_quadrant = quadrant_pos(new_pos)
-        quadrants[in_quadrant] += 1
+    for i in range(10000):
+        new_pos = []
+        for pos in old_pos:
+            pos_x, pos_y, vel_x, vel_y = pos
+            new_pos.append(simulate_movement((pos_x, pos_y), (vel_x, vel_y), i))
+        if (i-187) % 101 == 0:
+            print_robos_pos(new_pos)
+            print(f'Seconds: {i}')
+            input('')
 
-    result = math.prod(quadrants[1:])
-    end = time.perf_counter()
-
-    duration_ns = (end-start)
-    print(f"It took {duration_ns}s to calculate {result}")
+            #57, 86, 160, 187, 288, 389, 490
